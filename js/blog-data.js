@@ -114,10 +114,10 @@ window.BLOG_POSTS = {
     views: '2,118 views',
     author: AUTHORS.SOPHIE,
     hero: {
-      src: 'https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=1200&q=85&auto=format&fit=crop',
+      src: 'https://images.unsplash.com/photo-1526381961797-6eb86497d928?w=1200&q=85&auto=format&fit=crop',
       alt: 'Composting pile with rich dark soil'
     },
-    headerBg: 'https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=1600&q=80&auto=format&fit=crop',
+    headerBg: 'https://images.unsplash.com/photo-1526381961797-6eb86497d928?w=1600&q=80&auto=format&fit=crop',
     sections: [
       { title: 'Why Composting Matters', id: 'section-1', paras: [
         'Composting is the single highest-impact thing a gardener can do for their soil. Every scrap of kitchen waste you divert from landfill becomes food for a microscopic ecosystem that, in turn, feeds your plants.',
@@ -159,10 +159,10 @@ window.BLOG_POSTS = {
     views: '4,905 views',
     author: AUTHORS.ELENA,
     hero: {
-      src: 'https://images.unsplash.com/photo-1466781783364-36c955e42a7f?w=1200&q=85&auto=format&fit=crop',
+      src: 'https://images.unsplash.com/photo-1643730508670-9e4804f59eb9?w=1200&q=85&auto=format&fit=crop',
       alt: 'Sunlit summer vegetable garden'
     },
-    headerBg: 'https://images.unsplash.com/photo-1466781783364-36c955e42a7f?w=1600&q=80&auto=format&fit=crop',
+    headerBg: 'https://images.unsplash.com/photo-1643730508670-9e4804f59eb9?w=1600&q=80&auto=format&fit=crop',
     sections: [
       { title: 'Plan Before You Plant', id: 'section-1', paras: [
         'The summer garden rewards planning. Before the first seed goes in, sketch your beds on paper, rotate your crops away from last season\'s families, and check your soil\'s pH and drainage. A half-day of planning saves a full season of frustration.'
@@ -198,10 +198,10 @@ window.BLOG_POSTS = {
     views: '3,861 views',
     author: AUTHORS.KAI,
     hero: {
-      src: 'https://images.unsplash.com/photo-1526397751294-331021109fbd?w=1200&q=85&auto=format&fit=crop',
+      src: 'https://images.unsplash.com/photo-1621460245907-8b291dd52dfc?w=1200&q=85&auto=format&fit=crop',
       alt: 'Drought tolerant succulents and grasses'
     },
-    headerBg: 'https://images.unsplash.com/photo-1526397751294-331021109fbd?w=1600&q=80&auto=format&fit=crop',
+    headerBg: 'https://images.unsplash.com/photo-1621460245907-8b291dd52dfc?w=1600&q=80&auto=format&fit=crop',
     sections: [
       { title: 'Designing for Low Water', id: 'section-1', paras: [
         'Drought-tolerant planting is about working with your climate instead of against it. Group plants by their water needs, build rich organic soil that holds moisture, and use a thick mulch to stop evaporation before it begins.'
@@ -238,10 +238,10 @@ window.BLOG_POSTS = {
     views: '2,740 views',
     author: AUTHORS.SOPHIE,
     hero: {
-      src: 'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=1200&q=85&auto=format&fit=crop',
+      src: 'https://images.unsplash.com/photo-1724556295094-62d093eddd87?w=1200&q=85&auto=format&fit=crop',
       alt: 'Hand holding rich soil with compost'
     },
-    headerBg: 'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=1600&q=80&auto=format&fit=crop',
+    headerBg: 'https://images.unsplash.com/photo-1724556295094-62d093eddd87?w=1600&q=80&auto=format&fit=crop',
     sections: [
       { title: 'The Core Difference', id: 'section-1', paras: [
         'Both organic and synthetic fertilisers deliver the same NPK nutrients to plants — the difference lies in how, and how quickly, they release them. Synthetic fertilisers feed the plant directly in water-soluble form. Organic fertilisers feed the soil, which in turn feeds the plant.'
@@ -278,10 +278,10 @@ window.BLOG_POSTS = {
     views: '1,953 views',
     author: AUTHORS.KAI,
     hero: {
-      src: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=1200&q=85&auto=format&fit=crop',
+      src: 'https://images.unsplash.com/photo-1734111535105-2e4d98e42db5?w=1200&q=85&auto=format&fit=crop',
       alt: 'Assorted ceramic plant pots'
     },
-    headerBg: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=1600&q=80&auto=format&fit=crop',
+    headerBg: 'https://images.unsplash.com/photo-1734111535105-2e4d98e42db5?w=1600&q=80&auto=format&fit=crop',
     sections: [
       { title: 'Material Matters', id: 'section-1', paras: [
         'The material of your pot is not decoration — it controls moisture, temperature, and aeration at the root zone. Matching material to plant is the difference between thriving and merely surviving.'
@@ -313,10 +313,10 @@ window.BLOG_POSTS = {
     views: '3,102 views',
     author: AUTHORS.KAI,
     hero: {
-      src: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1200&q=85&auto=format&fit=crop',
+      src: 'https://images.unsplash.com/photo-1621958206813-2e9c0441c5b0?w=1200&q=85&auto=format&fit=crop',
       alt: 'Small balcony transformed into a green garden'
     },
-    headerBg: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1600&q=80&auto=format&fit=crop',
+    headerBg: 'https://images.unsplash.com/photo-1621958206813-2e9c0441c5b0?w=1600&q=80&auto=format&fit=crop',
     sections: [
       { title: 'Think Vertically', id: 'section-1', paras: [
         'On a balcony, floor space is precious and vertical space is free. Wall-mounted planters, tiered stands, and trailing plants along railings triple your growing area without using a centimetre of floor.'
