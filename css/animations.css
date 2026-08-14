@@ -1,0 +1,310 @@
+/* ============================================================
+   BOTANICAL LIFESTYLE — ANIMATIONS
+   animations.css
+   ============================================================ */
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes floatX {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(8px); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes ripple {
+  0%   { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes leafSway {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50%       { transform: rotate(3deg) scale(1.03); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes progressBar {
+  from { width: 0%; }
+  to   { width: var(--progress, 100%); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spinnerRing {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Scroll Reveal Base States ─────────────────────────── */
+/* Base hidden states only apply when JS is active (.js),
+   so content is NEVER invisible if scripts fail or on mobile. */
+.js .reveal {
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.js .reveal--up      { transform: translateY(50px); }
+.js .reveal--down    { transform: translateY(-50px); }
+.js .reveal--left    { transform: translateX(-50px); }
+.js .reveal--right   { transform: translateX(50px); }
+.js .reveal--scale   { transform: scale(0.88); }
+.js .reveal--rotate  { transform: rotate(-5deg) scale(0.92); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children */
+.js .reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1)  { opacity: 1; transform: none; transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2)  { opacity: 1; transform: none; transition-delay: 100ms; }
+.reveal-stagger.is-visible > *:nth-child(3)  { opacity: 1; transform: none; transition-delay: 200ms; }
+.reveal-stagger.is-visible > *:nth-child(4)  { opacity: 1; transform: none; transition-delay: 300ms; }
+.reveal-stagger.is-visible > *:nth-child(5)  { opacity: 1; transform: none; transition-delay: 400ms; }
+.reveal-stagger.is-visible > *:nth-child(6)  { opacity: 1; transform: none; transition-delay: 500ms; }
+.reveal-stagger.is-visible > *:nth-child(7)  { opacity: 1; transform: none; transition-delay: 600ms; }
+.reveal-stagger.is-visible > *:nth-child(8)  { opacity: 1; transform: none; transition-delay: 700ms; }
+
+/* ─── Hover Micro-Animations ────────────────────────────── */
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-grow {
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+.hover-grow:hover { transform: scale(1.04); }
+
+.hover-shrink:hover { transform: scale(0.96); }
+
+/* Image zoom on card hover */
+.img-zoom-wrap {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.img-zoom-wrap img {
+  transition: transform var(--duration-slow) var(--ease-out);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-zoom-wrap:hover img,
+*:hover > .img-zoom-wrap img {
+  transform: scale(1.07);
+}
+
+/* ─── Floating Decorative Elements ──────────────────────── */
+.float-slow {
+  animation: floatY 6s var(--ease-inout) infinite;
+}
+
+.float-medium {
+  animation: floatY 4s var(--ease-inout) infinite;
+}
+
+.float-fast {
+  animation: floatY 3s var(--ease-inout) infinite;
+}
+
+.rotate-slow {
+  animation: rotateSlow 30s linear infinite;
+}
+
+.leaf-sway {
+  animation: leafSway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* ─── Loading Skeleton ───────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-alt) 25%,
+    var(--color-sand) 50%,
+    var(--color-bg-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Spinner ────────────────────────────────────────────── */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-terracotta);
+  border-radius: var(--radius-full);
+  animation: spinnerRing var(--duration-slow) linear infinite;
+}
+
+/* ─── Marquee ────────────────────────────────────────────── */
+.marquee-track {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-inner:hover { animation-play-state: paused; }
+
+/* ─── Parallax Base ─────────────────────────────────────── */
+[data-parallax] {
+  will-change: transform;
+}
+
+/* ─── Transition Delays ─────────────────────────────────── */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* ─── Number Counter ─────────────────────────────────────── */
+.counter-wrap {
+  animation: countUp var(--duration-slow) var(--ease-out) both;
+}
+
+/* ─── Underline Draw ─────────────────────────────────────── */
+.underline-draw {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-draw::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-terracotta);
+  transition: width var(--duration-slow) var(--ease-out);
+}
+
+.underline-draw:hover::after,
+.underline-draw.is-active::after { width: 100%; }
+
+/* ─── Ripple Effect ─────────────────────────────────────── */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple .ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  pointer-events: none;
+  animation: ripple 600ms ease-out;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

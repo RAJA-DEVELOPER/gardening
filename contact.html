@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Botanica — Get in touch with our expert team, visit our garden studio, or request a planting consultation. We reply within 48 hours." />
+  <title>Contact Us — Botanica Garden Studio</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+  <link rel="stylesheet" href="css/rtl.css" />
+  <style>
+    /* ─── CONTACT INFO CARDS ─────────────────────────────── */
+    .contact-cards-section {
+      padding-block: var(--section-py);
+      background: var(--color-bg);
+    }
+
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 1024px) { .contact-cards-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); } }
+    @media (max-width: 640px)  { .contact-cards-grid { grid-template-columns: 1fr; gap: var(--space-4); } }
+
+    .contact-info-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      text-align: center;
+      transition: transform var(--duration-normal) var(--ease-spring), box-shadow var(--duration-normal);
+    }
+
+    @media (max-width: 480px) {
+      .contact-info-card { padding: var(--space-6) var(--space-4); border-radius: var(--radius-xl); }
+      .contact-info-card__icon { width: 52px; height: 52px; font-size: 1.5rem; margin-bottom: var(--space-4); }
+    }
+    @media (max-width: 320px) {
+      .contact-info-card { padding: var(--space-4) var(--space-3); }
+    }
+
+    .contact-info-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .contact-info-card__icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-2xl);
+      background: rgba(184, 111, 82, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin: 0 auto var(--space-5);
+      transition: background var(--duration-normal), transform var(--duration-normal) var(--ease-spring);
+    }
+
+    .contact-info-card:hover .contact-info-card__icon {
+      background: var(--color-terracotta);
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .contact-info-card__title {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-info-card__value {
+      font-size: var(--text-base);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+      overflow-wrap: break-word;
+    }
+
+    .contact-info-card__detail {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: var(--leading-relaxed);
+    }
+
+    /* ─── CONTACT FORM + MAP ─────────────────────────────── */
+    .contact-main-section {
+      padding-block: var(--section-py);
+      background: var(--color-bg-alt);
+    }
+
+    .contact-main-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: clamp(2rem, 5vw, 6rem);
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) { .contact-main-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
+
+    .contact-form-box {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10);
+      box-shadow: var(--shadow-lg);
+    }
+
+    @media (max-width: 480px) {
+      .contact-form-box { padding: var(--space-5); border-radius: var(--radius-xl); }
+    }
+    @media (max-width: 320px) {
+      .contact-form-box { padding: var(--space-4); }
+    }
+
+    .contact-form-title {
+      font-family: var(--font-serif);
+      font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+      margin-bottom: var(--space-2);
+    }
+
+    .contact-form-subtitle {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-8);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; gap: var(--space-4); } }
+
+    /* ─── MAP ────────────────────────────────────────────── */
+    .contact-map {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-map iframe {
+      width: 100%;
+      height: 320px;
+      display: block;
+      border: none;
+      filter: grayscale(20%);
+    }
+
+    @media (max-width: 480px) {
+      .contact-map iframe { height: 240px; }
+    }
+
+    /* ─── BUSINESS HOURS ─────────────────────────────────── */
+    .hours-panel {
+      background: var(--color-forest);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      margin-top: var(--space-6);
+    }
+
+    @media (max-width: 480px) {
+      .hours-panel { padding: var(--space-5); border-radius: var(--radius-xl); }
+    }
+    @media (max-width: 320px) {
+      .hours-panel { padding: var(--space-4); }
+    }
+
+    .hours-panel__title {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      color: white;
+      margin-bottom: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding-block: var(--space-3);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: var(--text-sm);
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+
+    .hours-row .day { color: rgba(255,255,255,0.7); }
+    .hours-row .time { color: white; font-weight: var(--weight-semibold); }
+    .hours-row .time.closed { color: var(--color-terracotta); }
+
+    /* ─── FAQ SECTION ────────────────────────────────────── */
+    .faq-section {
+      padding-block: var(--section-py);
+      background: var(--color-sand);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    @media (max-width: 768px) { .faq-grid { grid-template-columns: 1fr; gap: var(--space-6); } }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="page-transition" aria-hidden="true"></div>
+  <div class="toast-container" role="alert" aria-live="polite"></div>
+
+  <header class="navbar is-transparent" role="banner">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+        <div class="navbar__logo-text">
+          <span class="navbar__logo-name">Botanica</span>
+          <span class="navbar__logo-tagline">Garden Studio</span>
+        </div>
+      </a>
+      <nav class="navbar__nav" aria-label="Main navigation">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="home2.html" class="navbar__link">Home 2</a>
+        <a href="about.html" class="navbar__link">About</a>
+        <a href="services.html" class="navbar__link">Services</a>
+        <a href="blog.html" class="navbar__link">Blog</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+        <button class="rtl-toggle" data-rtl-toggle aria-label="Toggle RTL">RTL</button>
+        <a href="contact.html" class="btn btn--primary btn--sm btn-ripple">
+          Shop Now
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="navbar__overlay" aria-hidden="true"></div>
+  <nav class="navbar__mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <div class="mobile-menu__header">
+      <a href="index.html" class="navbar__logo"><div class="navbar__logo-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="navbar__logo-text"><span class="navbar__logo-name" style="color:var(--color-text-primary)">Botanica</span></div></a>
+      <button class="mobile-menu__close" aria-label="Close menu">✕</button>
+    </div>
+    <div class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Home <span>→</span></a>
+      <a href="home2.html" class="mobile-menu__link">Home 2 <span>→</span></a>
+      <a href="about.html" class="mobile-menu__link">About <span>→</span></a>
+      <a href="services.html" class="mobile-menu__link">Services <span>→</span></a>
+      <a href="blog.html" class="mobile-menu__link">Blog <span>→</span></a>
+      <a href="contact.html" class="mobile-menu__link">Contact <span>→</span></a>
+    </div>
+    <div class="mobile-menu__footer"><a href="contact.html" class="btn btn--primary w-full" style="justify-content:center">Shop Now</a></div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══ SECTION 1: PAGE HERO ══════════════════════════ -->
+    <section class="page-hero" aria-label="Contact Botanica" style="background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop')">
+      <div class="container">
+        <div class="page-hero__content">
+          <nav class="page-hero__breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a><span>/</span>
+            <span class="page-hero__breadcrumb-current">Contact</span>
+          </nav>
+          <h1 class="page-hero__title">Let's <em style="color:var(--color-terracotta)">Grow Together</em></h1>
+          <p class="page-hero__subtitle">Whether you have a plant question, a bulk order enquiry, or just want to say hello — we'd love to hear from you. Our team typically responds within 48 hours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 2: CONTACT CARDS ══════════════════════ -->
+    <section class="contact-cards-section" aria-labelledby="contact-cards-title">
+      <div class="container">
+        <div class="contact-cards-grid reveal-stagger">
+          <div class="contact-info-card">
+            <div class="contact-info-card__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <h3 class="contact-info-card__title">Call Us</h3>
+            <p class="contact-info-card__value">+1 (555) 234-5678</p>
+            <p class="contact-info-card__detail">Mon–Fri, 9am–6pm EST<br/>Weekend support available for urgent queries</p>
+          </div>
+          <div class="contact-info-card">
+            <div class="contact-info-card__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg></div>
+            <h3 class="contact-info-card__title">Email Us</h3>
+            <p class="contact-info-card__value">hello@botanica.com</p>
+            <p class="contact-info-card__detail">For general enquiries, plant advice, and partnerships. We respond within 48 hours.</p>
+          </div>
+          <div class="contact-info-card">
+            <div class="contact-info-card__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h3 class="contact-info-card__title">Visit Us</h3>
+            <p class="contact-info-card__value">123 Garden Lane, Greenville</p>
+            <p class="contact-info-card__detail">NC 27834, United States<br/>Free parking available onsite</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3: CONTACT FORM ════════════════════════ -->
+    <section class="contact-main-section" aria-labelledby="contact-form-title">
+      <div class="container">
+        <div class="contact-main-grid">
+          <div class="contact-form-box reveal reveal--left">
+            <h2 class="contact-form-title" id="contact-form-title">Send Us a <em>Message</em></h2>
+            <p class="contact-form-subtitle">Fill in the form below and our team will get back to you within 48 hours.</p>
+            <form data-validate-form data-success-msg="Thank you! Your message has been sent. We'll be in touch within 48 hours.">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contact-fname">First Name <span class="required">*</span></label>
+                  <input class="form-control" type="text" id="contact-fname" name="fname" placeholder="Elena" data-validate="required minLength:2" autocomplete="given-name" />
+                  <span class="form-error"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contact-lname">Last Name <span class="required">*</span></label>
+                  <input class="form-control" type="text" id="contact-lname" name="lname" placeholder="Romano" data-validate="required minLength:2" autocomplete="family-name" />
+                  <span class="form-error"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contact-email">Email Address <span class="required">*</span></label>
+                  <input class="form-control" type="email" id="contact-email" name="email" placeholder="elena@garden.com" data-validate="required email" autocomplete="email" />
+                  <span class="form-error"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contact-phone">Phone Number</label>
+                  <input class="form-control" type="tel" id="contact-phone" name="phone" placeholder="+1 (555) 234-5678" data-validate="phone" autocomplete="tel" />
+                  <span class="form-error"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-subject">Subject <span class="required">*</span></label>
+                <div class="form-select-wrap">
+                  <select class="form-control" id="contact-subject" name="subject" data-validate="required">
+                    <option value="">Select a topic…</option>
+                    <option>Plant Consultation</option>
+                    <option>Bulk / Trade Order</option>
+                    <option>Custom Ceramics</option>
+                    <option>Subscription Box</option>
+                    <option>General Enquiry</option>
+                    <option>Press & Media</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <span class="form-error"></span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Your Message <span class="required">*</span></label>
+                <textarea class="form-control" id="contact-message" name="message" placeholder="Tell us what you need help with…" data-validate="required minLength:20"></textarea>
+                <span class="form-error"></span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:var(--space-3);margin-bottom:var(--space-6)">
+                <input type="checkbox" id="contact-consent" style="margin-top:4px;flex-shrink:0;accent-color:var(--color-terracotta)" />
+                <label for="contact-consent" style="font-size:var(--text-xs);color:var(--color-text-muted)">I agree to Botanica's <a href="privacy-policy.html" style="color:var(--color-terracotta)">Privacy Policy</a> and consent to being contacted about my enquiry.</label>
+              </div>
+              <button type="submit" class="btn btn--primary btn--lg btn-ripple w-full" style="justify-content:center">
+                Send Message <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              </button>
+            </form>
+          </div>
+
+          <div class="reveal reveal--right">
+            <div class="contact-map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3270.4573853773!2d-77.03687168468765!3d38.90719827957203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b782298c5cfd%3A0x6e1f7e0e71a5d55f!2sWhite%20House!5e0!3m2!1sen!2sus!4v1623000000000" title="Botanica Garden Studio Map" loading="lazy" allowfullscreen></iframe>
+            </div>
+
+            <div class="hours-panel">
+              <p class="hours-panel__title"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Business Hours</p>
+              <div class="hours-row"><span class="day">Monday – Friday</span><span class="time">9:00 am – 6:00 pm</span></div>
+              <div class="hours-row"><span class="day">Saturday</span><span class="time">10:00 am – 5:00 pm</span></div>
+              <div class="hours-row"><span class="day">Sunday</span><span class="time closed">Closed</span></div>
+              <div class="hours-row"><span class="day">Public Holidays</span><span class="time closed">Closed</span></div>
+            </div>
+
+            <div style="background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);margin-top:var(--space-6)">
+              <p style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-3)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Faster Response?</p>
+              <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4)">For urgent plant emergencies or same-day consultation requests, message us on WhatsApp for priority support.</p>
+              <a href="https://wa.me/15552345678" target="_blank" rel="noopener" class="btn btn--outline w-full" style="display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg> WhatsApp Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4: MAP (standalone) ════════════════════ -->
+    <!-- (Map embedded within contact form section above, separate section is FAQ) -->
+
+    <!-- ═══ SECTION 5: FAQ ACCORDION ══════════════════════ -->
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="faq-grid">
+          <div class="reveal reveal--left">
+            <p class="section-label">Common Questions</p>
+            <h2 class="section-title" id="faq-title">Frequently Asked <em>Questions</em></h2>
+            <p style="color:var(--color-text-muted);line-height:var(--leading-relaxed);margin-bottom:var(--space-8)">Can't find what you're looking for? Send us a message and we'll respond within 48 hours.</p>
+            <div style="background:var(--color-forest);border-radius:var(--radius-xl);padding:var(--space-8)">
+              <p style="font-family:var(--font-serif);font-size:var(--text-xl);color:white;margin-bottom:var(--space-3)">Still have questions?</p>
+              <p style="font-size:var(--text-sm);color:rgba(255,255,255,0.65);margin-bottom:var(--space-5)">Our botanists are available Mon–Fri to answer any plant or gardening query.</p>
+              <a href="mailto:hello@botanica.com" class="btn btn--primary btn-ripple"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg> Email Our Team</a>
+            </div>
+          </div>
+
+          <div class="reveal reveal--right">
+            <div class="accordion" role="list">
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">Do you ship live plants internationally?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">Yes! We ship to 38 countries worldwide. Live plants are specially packaged in breathable boxes with moisture-retaining padding. Shipping times vary by destination — typically 3–7 business days. Some countries have phytosanitary restrictions that limit certain species.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">What happens if my plant arrives damaged?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">We guarantee that all plants arrive alive and in good condition. If your plant arrives damaged, photograph it within 24 hours and email us at support@botanica.com. We'll arrange a free replacement or full refund — no questions asked.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">Do you offer trade pricing for landscapers?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">Absolutely. We offer a dedicated trade programme for professional landscapers, interior designers, architects, and garden centres. Trade accounts receive 15–25% discounts, priority delivery, and dedicated account management. Apply via our trade form or email trade@botanica.com.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">Can I visit your garden studio in person?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">Yes, our flagship greenhouse studio in Greenville, NC is open Monday–Saturday. We host regular open studio days, workshops, and planting events. Check our Journal for upcoming event dates, or email us to arrange a private consultation visit.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">How do I care for my plant after delivery?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">Every plant order includes a personalised care card with watering frequency, light requirements, humidity preferences, and fertilisation schedule. We also offer free email follow-up support for 30 days after purchase. Our Garden Journal is packed with in-depth care guides.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">Are your soils and fertilizers certified organic?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">Yes — all Botanica soil blends and fertilizers are USDA Organic certified. We never use synthetic pesticides, peat, or non-renewable inputs. Our worm castings are produced on-site from 100% food waste, and our potting mix uses only peat-free, sustainably sourced components.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">Do you offer gift wrapping or gift cards?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">We offer beautiful botanical gift wrapping using recycled kraft paper and dried botanicals for an additional $5. Digital gift cards are available in any amount from $25–$500, delivered instantly by email. Physical gift cards can be posted at no extra charge.</div></div>
+              </div>
+              <div class="accordion-item" role="listitem">
+                <button class="accordion-trigger">What is your return and refund policy?<span class="accordion-icon">+</span></button>
+                <div class="accordion-body"><div class="accordion-body-inner">Non-perishable items (pots, tools, soil, seeds) can be returned within 30 days of delivery for a full refund, provided they are unused and in original packaging. Live plants cannot be returned but are covered by our arrival guarantee. See our full policy in the Terms & Conditions.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6: BUSINESS HOURS + SOCIAL ══════════════ -->
+    <section class="section" style="background:var(--color-forest)" aria-labelledby="social-title">
+      <div class="container">
+        <div style="text-align:center;max-width:600px;margin-inline:auto">
+          <p class="section-label" style="color:var(--color-sage-light);justify-content:center">Social & Community</p>
+          <h2 class="section-title" id="social-title" style="color:white">Follow Our <em style="color:var(--color-terracotta)">Journey</em></h2>
+          <p style="color:rgba(255,255,255,0.6);margin-bottom:var(--space-8)">Join thousands of plant lovers on our social channels for daily inspiration, growing tips, and behind-the-scenes glimpses from our greenhouse.</p>
+          <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap" class="reveal-stagger">
+            <a href="#" class="btn btn--outline-white btn--lg" aria-label="Instagram"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+            <a href="#" class="btn btn--outline-white btn--lg" aria-label="Pinterest"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg> Pinterest</a>
+            <a href="#" class="btn btn--outline-white btn--lg" aria-label="YouTube"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> YouTube</a>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)">
+            <div style="width:40px;height:40px;background:var(--color-terracotta);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.2rem"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+            <p class="footer__brand-name">Botanica</p>
+          </div>
+          <p class="footer__brand-desc">A sanctuary for plant lovers. We curate the world's finest botanicals, artisan ceramics, and organic growing supplies — delivered to your door.</p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social-link" aria-label="Instagram"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Pinterest"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Twitter"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__heading">Shop</p>
+          <ul class="footer__links">
+            <li><a href="services.html" class="footer__link">Flower Pots</a></li>
+            <li><a href="services.html" class="footer__link">Indoor Plants</a></li>
+            <li><a href="services.html" class="footer__link">Outdoor Plants</a></li>
+            <li><a href="services.html" class="footer__link">Seeds & Bulbs</a></li>
+            <li><a href="services.html" class="footer__link">Soil & Fertilizers</a></li>
+            <li><a href="services.html" class="footer__link">Garden Tools</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Company</p>
+          <ul class="footer__links">
+            <li><a href="index.html" class="footer__link">Home</a></li>
+            <li><a href="home2.html" class="footer__link">Home 2</a></li>
+            <li><a href="about.html" class="footer__link">About</a></li>
+            <li><a href="services.html" class="footer__link">Services</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Newsletter</p>
+          <p style="font-size:var(--text-sm);color:rgba(255,255,255,0.55);margin-bottom:var(--space-4)">Weekly planting guides & exclusive offers.</p>
+          <form data-newsletter-form class="footer__newsletter">
+            <input type="email" class="form-control" placeholder="your@email.com" style="margin-bottom:var(--space-3)" />
+            <button type="submit" class="btn btn--primary w-full" style="justify-content:center">Subscribe</button>
+          </form>
+          <div class="footer__contact-list">
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> 123 Garden Lane, Greenville</p>
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +1 (555) 234-5678</p>
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg> hello@botanica.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Botanica Garden Studio. All rights reserved.</p>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms.html" class="footer__legal-link">Terms</a>
+          <a href="sitemap.html" class="footer__legal-link">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/forms.js"></script>
+</body>
+</html>

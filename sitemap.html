@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Botanica Sitemap — A complete directory of all pages on the Botanica Garden Studio website." />
+  <title>Sitemap — Botanica Garden Studio</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+  <link rel="stylesheet" href="css/rtl.css" />
+  <style>
+    .sitemap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 1024px) { .sitemap-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); } }
+    @media (max-width: 640px)  { .sitemap-grid { grid-template-columns: 1fr; gap: var(--space-4); } }
+
+    .sitemap-group {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: box-shadow var(--duration-normal);
+    }
+
+    .sitemap-group:hover { box-shadow: var(--shadow-md); }
+
+    .sitemap-group__header {
+      background: var(--color-forest);
+      padding: var(--space-4) var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .sitemap-group__icon { font-size: 1.25rem; }
+
+    .sitemap-group__title {
+      font-family: var(--font-serif);
+      font-size: var(--text-lg);
+      color: white;
+    }
+
+    .sitemap-group__links {
+      padding: var(--space-4) var(--space-5);
+      list-style: none;
+    }
+
+    .sitemap-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-size: var(--text-sm);
+      transition: color var(--duration-fast), gap var(--duration-fast);
+      text-decoration: none;
+    }
+
+    .sitemap-link:last-child { border-bottom: none; }
+    .sitemap-link:hover { color: var(--color-terracotta); gap: var(--space-4); }
+    .sitemap-link::before { content: '→'; font-size: var(--text-xs); color: var(--color-terracotta); opacity: 0; transition: opacity var(--duration-fast); }
+    .sitemap-link:hover::before { opacity: 1; }
+
+    .sitemap-search-bar {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+
+    @media (max-width: 480px) {
+      .sitemap-search-bar { padding: var(--space-5); border-radius: var(--radius-xl); margin-bottom: var(--space-6); }
+    }
+    @media (max-width: 320px) {
+      .sitemap-search-bar { padding: var(--space-4); }
+    }
+
+    .sitemap-search-bar h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+      margin-bottom: var(--space-3);
+    }
+
+    .sitemap-search-bar p {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-5);
+    }
+
+    .sitemap-search-inner {
+      display: flex;
+      max-width: 480px;
+      margin-inline: auto;
+      gap: var(--space-3);
+    }
+
+    @media (max-width: 480px) {
+      .sitemap-search-inner { flex-direction: column; }
+    }
+
+    .sitemap-stats {
+      display: flex;
+      gap: var(--space-6);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-10);
+    }
+
+    @media (max-width: 480px) {
+      .sitemap-stats { gap: var(--space-3); margin-bottom: var(--space-6); }
+    }
+
+    .sitemap-stat {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5) var(--space-8);
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .sitemap-stat { padding: var(--space-4) var(--space-5); min-width: 130px; }
+    }
+    @media (max-width: 320px) {
+      .sitemap-stat { width: 100%; }
+    }
+
+    .sitemap-stat__num {
+      font-family: var(--font-serif);
+      font-size: var(--text-3xl);
+      color: var(--color-terracotta);
+      margin-bottom: 2px;
+    }
+
+    .sitemap-stat__label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--color-text-muted);
+    }
+
+    .xml-sitemap-section {
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-top: var(--space-10);
+    }
+
+    @media (max-width: 480px) {
+      .xml-sitemap-section { padding: var(--space-4); margin-top: var(--space-6); }
+    }
+
+    .xml-sitemap-section h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-2);
+    }
+
+    .xml-sitemap-section p {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="page-transition" aria-hidden="true"></div>
+  <div class="toast-container" role="alert" aria-live="polite"></div>
+
+  <header class="navbar is-transparent" role="banner">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo"><div class="navbar__logo-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="navbar__logo-text"><span class="navbar__logo-name">Botanica</span><span class="navbar__logo-tagline">Garden Studio</span></div></a>
+      <nav class="navbar__nav" aria-label="Main navigation">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="home2.html" class="navbar__link">Home 2</a>
+        <a href="about.html" class="navbar__link">About</a>
+        <a href="services.html" class="navbar__link">Services</a>
+        <a href="blog.html" class="navbar__link">Blog</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme" title="Toggle theme"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+        <button class="rtl-toggle" data-rtl-toggle aria-label="Toggle RTL" title="Toggle RTL/LTR">RTL</button>
+        <a href="contact.html" class="btn btn--primary btn--sm btn-ripple">
+          Shop Now
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="navbar__overlay" aria-hidden="true"></div>
+  <nav class="navbar__mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <div class="mobile-menu__header"><a href="index.html" class="navbar__logo"><div class="navbar__logo-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="navbar__logo-text"><span class="navbar__logo-name" style="color:var(--color-text-primary)">Botanica</span></div></a><button class="mobile-menu__close" aria-label="Close menu">✕</button></div>
+    <div class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Home <span>→</span></a>
+      <a href="home2.html" class="mobile-menu__link">Home 2 <span>→</span></a>
+      <a href="about.html" class="mobile-menu__link">About <span>→</span></a>
+      <a href="services.html" class="mobile-menu__link">Services <span>→</span></a>
+      <a href="blog.html" class="mobile-menu__link">Blog <span>→</span></a>
+      <a href="contact.html" class="mobile-menu__link">Contact <span>→</span></a>
+    </div>
+    <div class="mobile-menu__footer"><a href="contact.html" class="btn btn--primary w-full" style="justify-content:center">Shop Now</a></div>
+  </nav>
+
+  <main id="main">
+    <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80&auto=format&fit=crop')">
+      <div class="container">
+        <div class="page-hero__content">
+          <nav class="page-hero__breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span class="page-hero__breadcrumb-current">Sitemap</span></nav>
+          <h1 class="page-hero__title">Site <em style="color:var(--color-terracotta)">Map</em></h1>
+          <p class="page-hero__subtitle">A complete directory of every page on the Botanica website — organised for easy navigation and search engine indexing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- Stats bar -->
+        <div class="sitemap-stats reveal-stagger">
+          <div class="sitemap-stat">
+            <p class="sitemap-stat__num">12</p>
+            <p class="sitemap-stat__label">Total Pages</p>
+          </div>
+          <div class="sitemap-stat">
+            <p class="sitemap-stat__num">5</p>
+            <p class="sitemap-stat__label">Categories</p>
+          </div>
+          <div class="sitemap-stat">
+            <p class="sitemap-stat__num">Daily</p>
+            <p class="sitemap-stat__label">XML Update</p>
+          </div>
+          <div class="sitemap-stat">
+            <p class="sitemap-stat__num">HTTPS</p>
+            <p class="sitemap-stat__label">All Pages</p>
+          </div>
+        </div>
+
+        <!-- Search bar -->
+        <div class="sitemap-search-bar reveal reveal--up">
+          <h2>Find a Page</h2>
+          <p>Can't find what you need? Search our site or browse the categories below.</p>
+          <div class="sitemap-search-inner">
+            <input type="search" class="form-control" id="sitemap-search" placeholder="Search pages…" />
+            <button class="btn btn--primary btn-ripple">Search</button>
+          </div>
+        </div>
+
+        <!-- Sitemap grid -->
+        <div class="sitemap-grid reveal-stagger">
+          <div class="sitemap-group">
+            <div class="sitemap-group__header">
+              <span class="sitemap-group__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
+              <h2 class="sitemap-group__title">Main Pages</h2>
+            </div>
+            <ul class="sitemap-group__links">
+              <li><a href="index.html" class="sitemap-link">Home (v1)</a></li>
+              <li><a href="home2.html" class="sitemap-link">Home (v2)</a></li>
+              <li><a href="about.html" class="sitemap-link">About Us</a></li>
+              <li><a href="services.html" class="sitemap-link">Services</a></li>
+              <li><a href="contact.html" class="sitemap-link">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="sitemap-group">
+            <div class="sitemap-group__header">
+              <span class="sitemap-group__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>
+              <h2 class="sitemap-group__title">Garden Journal</h2>
+            </div>
+            <ul class="sitemap-group__links">
+              <li><a href="blog.html" class="sitemap-link">All Articles</a></li>
+              <li><a href="blog-details.html" class="sitemap-link">Article: Indoor Botanical Space</a></li>
+              <li><a href="blog.html" class="sitemap-link">Category: Plant Care</a></li>
+              <li><a href="blog.html" class="sitemap-link">Category: Seasonal Guides</a></li>
+              <li><a href="blog.html" class="sitemap-link">Category: Garden Design</a></li>
+            </ul>
+          </div>
+
+          <div class="sitemap-group">
+            <div class="sitemap-group__header">
+              <span class="sitemap-group__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span>
+              <h2 class="sitemap-group__title">Shop & Services</h2>
+            </div>
+            <ul class="sitemap-group__links">
+              <li><a href="services.html" class="sitemap-link">All Services</a></li>
+              <li><a href="services.html#pricing" class="sitemap-link">Subscription Plans</a></li>
+              <li><a href="services.html#service-cta" class="sitemap-link">Request a Quote</a></li>
+              <li><a href="services.html" class="sitemap-link">Custom Ceramics</a></li>
+              <li><a href="services.html" class="sitemap-link">Bulk Trade Orders</a></li>
+            </ul>
+          </div>
+
+          <div class="sitemap-group">
+            <div class="sitemap-group__header">
+              <span class="sitemap-group__icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span>
+              <h2 class="sitemap-group__title">Legal & Info</h2>
+            </div>
+            <ul class="sitemap-group__links">
+              <li><a href="privacy-policy.html" class="sitemap-link">Privacy Policy</a></li>
+              <li><a href="terms.html" class="sitemap-link">Terms & Conditions</a></li>
+              <li><a href="sitemap.html" class="sitemap-link">Sitemap (this page)</a></li>
+              <li><a href="404.html" class="sitemap-link">404 Not Found</a></li>
+              <li><a href="maintenance.html" class="sitemap-link">Maintenance Mode</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- XML sitemap note -->
+        <div class="xml-sitemap-section reveal reveal--up">
+          <h3><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg> XML Sitemap for Search Engines</h3>
+          <p>For search engine crawlers and SEO tools, our machine-readable XML sitemap is automatically generated and updated daily. Submit it to Google Search Console and Bing Webmaster Tools for optimal indexing.</p>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+            <a href="#" class="btn btn--outline btn--sm" onclick="event.preventDefault();window.BotanicaApp?.showToast('<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg> XML Sitemap: /sitemap.xml','info')"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> View XML Sitemap</a>
+            <a href="#" class="btn btn--ghost btn--sm" onclick="event.preventDefault();window.BotanicaApp?.showToast('<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Link copied!','success')"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Copy Sitemap URL</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)">
+            <div style="width:40px;height:40px;background:var(--color-terracotta);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.2rem"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+            <p class="footer__brand-name">Botanica</p>
+          </div>
+          <p class="footer__brand-desc">A sanctuary for plant lovers. We curate the world's finest botanicals, artisan ceramics, and organic growing supplies — delivered to your door.</p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social-link" aria-label="Instagram"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Pinterest"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Twitter"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__heading">Shop</p>
+          <ul class="footer__links">
+            <li><a href="services.html" class="footer__link">Flower Pots</a></li>
+            <li><a href="services.html" class="footer__link">Indoor Plants</a></li>
+            <li><a href="services.html" class="footer__link">Outdoor Plants</a></li>
+            <li><a href="services.html" class="footer__link">Seeds & Bulbs</a></li>
+            <li><a href="services.html" class="footer__link">Soil & Fertilizers</a></li>
+            <li><a href="services.html" class="footer__link">Garden Tools</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Company</p>
+          <ul class="footer__links">
+            <li><a href="index.html" class="footer__link">Home</a></li>
+            <li><a href="home2.html" class="footer__link">Home 2</a></li>
+            <li><a href="about.html" class="footer__link">About</a></li>
+            <li><a href="services.html" class="footer__link">Services</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Newsletter</p>
+          <p style="font-size:var(--text-sm);color:rgba(255,255,255,0.55);margin-bottom:var(--space-4)">Weekly planting guides & exclusive offers.</p>
+          <form data-newsletter-form class="footer__newsletter">
+            <input type="email" class="form-control" placeholder="your@email.com" style="margin-bottom:var(--space-3)" />
+            <button type="submit" class="btn btn--primary w-full" style="justify-content:center">Subscribe</button>
+          </form>
+          <div class="footer__contact-list">
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> 123 Garden Lane, Greenville</p>
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +1 (555) 234-5678</p>
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg> hello@botanica.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Botanica Garden Studio. All rights reserved.</p>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms.html" class="footer__legal-link">Terms</a>
+          <a href="sitemap.html" class="footer__legal-link">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

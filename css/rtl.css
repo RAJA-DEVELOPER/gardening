@@ -1,0 +1,97 @@
+/* ============================================================
+   BOTANICAL LIFESTYLE — RTL SUPPORT
+   rtl.css
+   ============================================================ */
+
+[dir="rtl"] {
+
+  /* ── Text Alignment ────────────────────────────────────── */
+  .section-label         { flex-direction: row-reverse; }
+  .section-label::before { margin-left: var(--space-2); margin-right: 0; }
+
+  /* ── Navbar ─────────────────────────────────────────────── */
+  .navbar__inner         { flex-direction: row-reverse; }
+  .navbar__dropdown-menu { left: auto; right: 50%; transform: translateX(50%) translateY(-8px); }
+  .navbar__dropdown:hover .navbar__dropdown-menu { transform: translateX(50%) translateY(0); }
+
+  .navbar__mobile-menu {
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  .navbar__mobile-menu.is-open { transform: translateX(0); }
+
+  /* ── Buttons ─────────────────────────────────────────────── */
+  .btn                    { flex-direction: row-reverse; }
+
+  /* ── Cards ──────────────────────────────────────────────── */
+  .card__badge            { left: auto; right: var(--space-4); }
+  .card__wishlist         { right: auto; left: var(--space-4); }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  .footer__link::before   { content: '←'; margin-left: var(--space-2); margin-right: 0; }
+  .footer__link:hover     { transform: translateX(-4px); }
+  .footer__socials        { flex-direction: row-reverse; }
+
+  /* ── Accordion ──────────────────────────────────────────── */
+  .accordion-trigger      { flex-direction: row-reverse; text-align: right; }
+
+  /* ── Testimonial ─────────────────────────────────────────── */
+  .testimonial-card__author { flex-direction: row-reverse; }
+
+  /* ── Breadcrumb ─────────────────────────────────────────── */
+  .page-hero__breadcrumb  { flex-direction: row-reverse; }
+
+  /* ── Process steps connect line (mirror) ─────────────────── */
+
+  /* ── Blog sidebar ────────────────────────────────────────── */
+  .blog-sidebar-tag       { flex-direction: row-reverse; }
+
+  /* ── Form labels ─────────────────────────────────────────── */
+  .form-label, .form-error, .form-success { flex-direction: row-reverse; }
+
+  /* ── Stats ───────────────────────────────────────────────── */
+  .stats-grid             { direction: ltr; } /* keep numbers LTR */
+
+  /* ── Page hero ────────────────────────────────────────────── */
+  .page-hero__decor {
+    right: auto;
+    left: 10%;
+  }
+
+  /* ── Hero slider content ──────────────────────────────────── */
+  .hero-slide__content    { text-align: center; }
+  .hero-slide__label      { flex-direction: row-reverse; }
+  .hero-slide__label::before { margin-left: var(--space-3); margin-right: 0; }
+  .hero-slide__actions    { justify-content: center; }
+
+  /* ── Category card ────────────────────────────────────────── */
+  .category-card__arrow   { right: auto; left: var(--space-4); }
+
+  /* ── Team card socials ────────────────────────────────────── */
+  .team-card__overlay     { flex-direction: column; align-items: flex-start; }
+
+  /* ── Mobile menu nav ──────────────────────────────────────── */
+  .mobile-menu__link      { flex-direction: row-reverse; }
+
+  /* ── Navbar hamburger + actions RTL ──────────────────────── */
+  .navbar__actions        { flex-direction: row-reverse; }
+
+  /* ── Footer bottom ────────────────────────────────────────── */
+  .footer__bottom         { flex-direction: row-reverse; }
+  .footer__legal-links    { flex-direction: row-reverse; }
+
+  /* ── Back to top ──────────────────────────────────────────── */
+  .back-to-top            { right: auto; left: var(--space-8); }
+
+  @media (max-width: 768px) {
+    .back-to-top { right: auto; left: var(--space-6); }
+  }
+
+  /* ── Pricing feature list ──────────────────────────────────── */
+  .pricing-card__feature  { flex-direction: row-reverse; text-align: right; }
+
+  /* ── Blog meta ─────────────────────────────────────────────── */
+  .blog-card__meta        { flex-direction: row-reverse; }
+}

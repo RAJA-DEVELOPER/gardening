@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Botanica Garden Journal — Expert planting guides, seasonal tips, gardening inspiration, plant care advice and botanical lifestyle articles." />
+  <title>Garden Journal — Botanica Blog</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+  <link rel="stylesheet" href="css/rtl.css" />
+  <style>
+    /* ─── BLOG LAYOUT ────────────────────────────────────── */
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .blog-layout { grid-template-columns: minmax(0, 1fr); }
+      .blog-sidebar { position: static; }
+    }
+
+    /* ─── FEATURED POST ──────────────────────────────────── */
+    .featured-post {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 21/9;
+      margin-bottom: var(--space-10);
+      cursor: pointer;
+      display: block;
+    }
+
+    @media (max-width: 768px) { .featured-post { aspect-ratio: 16/9; margin-bottom: var(--space-8); } }
+    @media (max-width: 480px) {
+      .featured-post { aspect-ratio: 4/3; border-radius: var(--radius-xl); margin-bottom: var(--space-6); }
+      .featured-post__content { padding: var(--space-4); }
+      .featured-post__title { font-size: clamp(1.25rem, 5vw, 1.75rem); }
+      .featured-post__meta { gap: var(--space-2); font-size: 11px; }
+      .featured-post__tag { font-size: 10px; padding: var(--space-1) var(--space-3); }
+    }
+    @media (max-width: 360px) {
+      .featured-post__title { font-size: clamp(1.15rem, 5vw, 1.4rem); }
+    }
+    @media (max-width: 320px) {
+      .featured-post { aspect-ratio: 1/1; margin-bottom: var(--space-5); }
+      .featured-post__content { padding: var(--space-3); }
+      .featured-post__tag { padding: 2px 8px; font-size: 10px; }
+      .featured-post__title { font-size: clamp(1.1rem, 5vw, 1.25rem); margin-bottom: var(--space-2); }
+      .featured-post__meta { font-size: 10px; row-gap: var(--space-1); }
+    }
+
+    .featured-post img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--duration-slow) var(--ease-out);
+    }
+
+    .featured-post:hover img { transform: scale(1.04); }
+
+    .featured-post__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(23, 63, 53, 0.92) 0%, transparent 50%);
+    }
+
+    .featured-post__content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .featured-post__tag {
+      display: inline-block;
+      background: var(--color-terracotta);
+      color: white;
+      padding: var(--space-1) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+
+    .featured-post__title {
+      font-family: var(--font-serif);
+      font-size: clamp(var(--text-2xl), 3.5vw, var(--text-4xl));
+      color: white;
+      margin-bottom: var(--space-3);
+      line-height: var(--leading-snug);
+    }
+
+    .featured-post__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ─── BLOG GRID ──────────────────────────────────────── */
+    .blog-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 768px) { .blog-posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); } }
+    @media (max-width: 640px) { .blog-posts-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); } }
+
+    /* ─── BLOG MOBILE FIXES ──────────────────────────────── */
+    @media (max-width: 640px) {
+      .featured-post__meta { flex-wrap: wrap; row-gap: var(--space-2); }
+      .blog-card__meta     { flex-wrap: wrap; row-gap: var(--space-2); }
+    }
+
+    @media (max-width: 480px) {
+      .blog-card__meta { gap: var(--space-3); }
+      .card__footer    { gap: var(--space-2); }
+    }
+
+    @media (max-width: 360px) {
+      .card__footer    { flex-direction: column; align-items: flex-start; }
+      .blog-card__meta { gap: var(--space-2) var(--space-3); }
+    }
+
+    /* Category filter */
+    .blog-filter-bar {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 480px) {
+      .blog-filter-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: var(--space-3);
+        margin-bottom: var(--space-6);
+      }
+      .blog-filter-bar .filter-tab { flex-shrink: 0; white-space: nowrap; }
+      .blog-filter-bar::-webkit-scrollbar { display: none; }
+      .blog-filter-bar { scrollbar-width: none; }
+    }
+
+    .filter-tab {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      border: 1.5px solid var(--color-border-dark);
+      color: var(--color-text-muted);
+      background: transparent;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: background var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast);
+    }
+
+    .filter-tab:hover,
+    .filter-tab.is-active {
+      background: var(--color-terracotta);
+      color: white;
+      border-color: var(--color-terracotta);
+    }
+
+    @media (max-width: 480px) {
+      .filter-tab { padding: var(--space-1) var(--space-3); }
+    }
+
+    /* ─── SIDEBAR ────────────────────────────────────────── */
+    .blog-sidebar {
+      position: sticky;
+      top: calc(var(--navbar-height-scrolled) + var(--space-6));
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 1024px) {
+      .blog-sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+        gap: var(--space-4);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .blog-sidebar { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .blog-sidebar-widget { padding: var(--space-5); }
+      .sidebar-recent-post__img { width: 52px; height: 52px; }
+    }
+
+    @media (max-width: 360px) {
+      .blog-sidebar-widget { padding: var(--space-4); }
+      .sidebar-recent-post { gap: var(--space-2); }
+    }
+
+    .blog-sidebar-widget {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+    }
+
+    .blog-sidebar-widget__title {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .sidebar-recent-post {
+      display: flex;
+      gap: var(--space-3);
+      padding-block: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .sidebar-recent-post:last-child { border-bottom: none; }
+
+    .sidebar-recent-post__img {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .sidebar-recent-post__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar-recent-post__title {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      line-height: var(--leading-snug);
+      margin-bottom: var(--space-1);
+      transition: color var(--duration-fast);
+    }
+
+    .sidebar-recent-post:hover .sidebar-recent-post__title { color: var(--color-terracotta); }
+
+    .sidebar-recent-post__date {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    .blog-categories-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .blog-category-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      transition: background var(--duration-fast), color var(--duration-fast);
+    }
+
+    .blog-category-item:hover {
+      background: var(--color-bg-alt);
+      color: var(--color-terracotta);
+    }
+
+    .blog-category-count {
+      font-size: var(--text-xs);
+      background: var(--color-bg-alt);
+      color: var(--color-text-muted);
+      border-radius: var(--radius-full);
+      padding: 2px 8px;
+    }
+
+    .blog-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .blog-tag {
+      padding: var(--space-1) var(--space-3);
+      border: 1px solid var(--color-border-dark);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      transition: background var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast);
+      cursor: pointer;
+    }
+
+    .blog-tag:hover {
+      background: var(--color-terracotta);
+      color: white;
+      border-color: var(--color-terracotta);
+    }
+
+    /* ─── INLINE NEWSLETTER ──────────────────────────────── */
+    .blog-newsletter-inline {
+      background: var(--color-forest);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      text-align: center;
+      margin-top: var(--space-10);
+    }
+
+    @media (max-width: 480px) {
+      .blog-newsletter-inline { padding: var(--space-5); border-radius: var(--radius-xl); margin-top: var(--space-6); }
+    }
+    @media (max-width: 320px) {
+      .blog-newsletter-inline { padding: var(--space-4); }
+    }
+
+    .blog-newsletter-inline h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+      color: white;
+      margin-bottom: var(--space-2);
+    }
+
+    .blog-newsletter-inline p {
+      color: rgba(255,255,255,0.7);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-6);
+    }
+
+    .blog-newsletter-inline form {
+      display: flex;
+      gap: var(--space-3);
+      max-width: 480px;
+      margin-inline: auto;
+    }
+
+    .blog-newsletter-inline input {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 0.875rem 1.25rem;
+      font-family: var(--font-sans);
+    }
+
+    @media (max-width: 360px) {
+      .blog-newsletter-inline input { padding: 0.75rem 1rem; font-size: var(--text-sm); }
+    }
+
+    .blog-newsletter-inline input::placeholder { color: rgba(255,255,255,0.5); }
+
+    @media (max-width: 640px) {
+      .blog-newsletter-inline form { flex-direction: column; }
+    }
+
+    /* ─── 320px (Ultra-Compact) ─────────────────────────── */
+    @media (max-width: 320px) {
+      .blog-posts-grid { gap: var(--space-4); }
+      .blog-card__meta { gap: var(--space-2); }
+      .filter-tab { padding: var(--space-1) var(--space-2); font-size: 10px; letter-spacing: var(--tracking-normal); }
+      .blog-filter-bar { margin-inline: calc(-1 * var(--container-px)); padding-inline: var(--container-px); }
+
+      .blog-sidebar-widget { padding: var(--space-4); }
+      .sidebar-recent-post__img { width: 48px; height: 48px; }
+      .sidebar-recent-post__title { font-size: var(--text-xs); }
+      .blog-category-item { font-size: var(--text-xs); }
+
+      .blog-newsletter-inline h3 { font-size: var(--text-lg); }
+      .blog-newsletter-inline p { font-size: var(--text-xs); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="page-transition" aria-hidden="true"></div>
+  <div class="toast-container" role="alert" aria-live="polite"></div>
+
+  <header class="navbar is-transparent" role="banner">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+        <div class="navbar__logo-text">
+          <span class="navbar__logo-name">Botanica</span>
+          <span class="navbar__logo-tagline">Garden Studio</span>
+        </div>
+      </a>
+      <nav class="navbar__nav" aria-label="Main navigation">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="home2.html" class="navbar__link">Home 2</a>
+        <a href="about.html" class="navbar__link">About</a>
+        <a href="services.html" class="navbar__link">Services</a>
+        <a href="blog.html" class="navbar__link">Blog</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+        <button class="rtl-toggle" data-rtl-toggle aria-label="Toggle RTL">RTL</button>
+        <a href="contact.html" class="btn btn--primary btn--sm btn-ripple">
+          Shop Now
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="navbar__overlay" aria-hidden="true"></div>
+  <nav class="navbar__mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <div class="mobile-menu__header">
+      <a href="index.html" class="navbar__logo"><div class="navbar__logo-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="navbar__logo-text"><span class="navbar__logo-name" style="color:var(--color-text-primary)">Botanica</span></div></a>
+      <button class="mobile-menu__close" aria-label="Close menu">✕</button>
+    </div>
+    <div class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Home <span>→</span></a>
+      <a href="home2.html" class="mobile-menu__link">Home 2 <span>→</span></a>
+      <a href="about.html" class="mobile-menu__link">About <span>→</span></a>
+      <a href="services.html" class="mobile-menu__link">Services <span>→</span></a>
+      <a href="blog.html" class="mobile-menu__link">Blog <span>→</span></a>
+      <a href="contact.html" class="mobile-menu__link">Contact <span>→</span></a>
+    </div>
+    <div class="mobile-menu__footer"><a href="contact.html" class="btn btn--primary w-full" style="justify-content:center">Shop Now</a></div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══ SECTION 1: BLOG HERO ══════════════════════════ -->
+    <section class="page-hero" aria-label="Garden Journal" style="background-image:url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600&q=80&auto=format&fit=crop')">
+      <div class="container">
+        <div class="page-hero__content">
+          <nav class="page-hero__breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a><span>/</span>
+            <span class="page-hero__breadcrumb-current">Journal</span>
+          </nav>
+          <h1 class="page-hero__title">The Garden <em style="color:var(--color-terracotta);font-style:italic">Journal</em></h1>
+          <p class="page-hero__subtitle">Expert planting guides, seasonal tips, botanical inspiration and plant care wisdom — all in one beautifully curated space.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Blog articles">
+      <div class="container">
+
+        <!-- ═══ SECTION 2: FEATURED POST ══════════════════ -->
+        <div class="reveal reveal--up" style="margin-bottom:var(--space-4)">
+          <p class="section-label">Editor's Pick</p>
+        </div>
+        <a href="blog-details.html?post=indoor-botanical-space" class="featured-post reveal reveal--up">
+          <img src="https://images.unsplash.com/photo-1604762524889-3e2fcc145683?w=1400&q=85&auto=format&fit=crop" alt="The art of creating a thriving indoor botanical space" loading="eager" />
+          <div class="featured-post__overlay"></div>
+          <div class="featured-post__content">
+            <span class="featured-post__tag"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg> Plant Care</span>
+            <h2 class="featured-post__title">How to Create a Thriving Indoor Botanical Space — A Complete Room-by-Room Guide</h2>
+            <div class="featured-post__meta">
+              <span><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> August 12, 2026</span>
+              <span><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 12 min read</span>
+              <span><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> 3,402 views</span>
+              <span>By Elena Romano</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="blog-layout">
+          <div>
+            <!-- ═══ SECTION 3: BLOG GRID ════════════════ -->
+            <div class="blog-filter-bar" data-filter-group data-filter-target=".blog-card-item">
+              <button class="filter-tab is-active" data-filter="all">All Posts</button>
+              <button class="filter-tab" data-filter="plant-care">Plant Care</button>
+              <button class="filter-tab" data-filter="seasonal">Seasonal</button>
+              <button class="filter-tab" data-filter="soil">Soil & Compost</button>
+              <button class="filter-tab" data-filter="design">Garden Design</button>
+              <button class="filter-tab" data-filter="pots">Pots & Planters</button>
+            </div>
+
+            <div class="blog-posts-grid reveal-stagger">
+              <article class="card blog-card-item" data-category="plant-care">
+                <div class="card__image img-zoom-wrap">
+                  <img src="https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=600&q=80&auto=format&fit=crop" alt="Composting for beginners" loading="lazy" />
+                  <span class="card__badge card__badge--new">New</span>
+                </div>
+                <div class="card__body">
+                  <p class="card__category">Soil Health</p>
+                  <h3 class="card__title"><a href="blog-details.html?post=composting-beginners">Composting for Beginners: 7 Steps to Rich, Dark Gold</a></h3>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__date"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Aug 10, 2026</span>
+                    <span class="blog-card__read-time"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 7 min read</span>
+                  </div>
+                  <p class="card__description">Turn your kitchen and garden waste into incredible, nutrient-dense compost that transforms tired soil into a thriving plant ecosystem.</p>
+                  <div class="card__footer">
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 7 min read</span>
+                    <a href="blog-details.html?post=composting-beginners" class="btn btn--ghost btn--sm">Read →</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card blog-card-item" data-category="seasonal">
+                <div class="card__image img-zoom-wrap">
+                  <img src="https://images.unsplash.com/photo-1466781783364-36c955e42a7f?w=600&q=80&auto=format&fit=crop" alt="Summer planting calendar" loading="lazy" />
+                </div>
+                <div class="card__body">
+                  <p class="card__category">Seasonal Guide</p>
+                  <h3 class="card__title"><a href="blog-details.html?post=summer-planting-calendar">Your Complete Summer Planting Calendar 2026</a></h3>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__date"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Aug 7, 2026</span>
+                    <span class="blog-card__read-time"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 10 min read</span>
+                  </div>
+                  <p class="card__description">What to plant, when to plant it, and how to prepare your soil for the richest summer harvest ever.</p>
+                  <div class="card__footer">
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 10 min read</span>
+                    <a href="blog-details.html?post=summer-planting-calendar" class="btn btn--ghost btn--sm">Read →</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card blog-card-item" data-category="plant-care">
+                <div class="card__image img-zoom-wrap">
+                  <img src="https://images.unsplash.com/photo-1526397751294-331021109fbd?w=600&q=80&auto=format&fit=crop" alt="Drought tolerant plants guide" loading="lazy" />
+                </div>
+                <div class="card__body">
+                  <p class="card__category">Plant Guide</p>
+                  <h3 class="card__title"><a href="blog-details.html?post=drought-tolerant-plants">10 Stunning Drought-Tolerant Plants That Need Almost No Water</a></h3>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__date"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Jul 29, 2026</span>
+                    <span class="blog-card__read-time"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 8 min read</span>
+                  </div>
+                  <p class="card__description">Beautiful gardens don't require constant watering. Discover our favourite hardy species that thrive on neglect.</p>
+                  <div class="card__footer">
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 8 min read</span>
+                    <a href="blog-details.html?post=drought-tolerant-plants" class="btn btn--ghost btn--sm">Read →</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card blog-card-item" data-category="soil">
+                <div class="card__image img-zoom-wrap">
+                  <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=600&q=80&auto=format&fit=crop" alt="Organic fertilizer comparison" loading="lazy" />
+                </div>
+                <div class="card__body">
+                  <p class="card__category">Fertilizers</p>
+                  <h3 class="card__title"><a href="blog-details.html?post=organic-vs-synthetic-fertilizers">Organic vs Synthetic Fertilizers: The Definitive 2026 Guide</a></h3>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__date"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Jul 21, 2026</span>
+                    <span class="blog-card__read-time"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 9 min read</span>
+                  </div>
+                  <p class="card__description">We break down the science, cost, environmental impact, and results of organic and synthetic fertilizers side by side.</p>
+                  <div class="card__footer">
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 9 min read</span>
+                    <a href="blog-details.html?post=organic-vs-synthetic-fertilizers" class="btn btn--ghost btn--sm">Read →</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card blog-card-item" data-category="pots">
+                <div class="card__image img-zoom-wrap">
+                  <img src="https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=600&q=80&auto=format&fit=crop" alt="How to choose the right pot" loading="lazy" />
+                </div>
+                <div class="card__body">
+                  <p class="card__category">Pots & Planters</p>
+                  <h3 class="card__title"><a href="blog-details.html?post=perfect-pot-guide">The Art of Choosing the Perfect Pot for Every Plant</a></h3>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__date"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Jul 14, 2026</span>
+                    <span class="blog-card__read-time"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 6 min read</span>
+                  </div>
+                  <p class="card__description">Material, drainage, size, and aesthetics — the complete guide to matching your plants with their perfect ceramic home.</p>
+                  <div class="card__footer">
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 6 min read</span>
+                    <a href="blog-details.html?post=perfect-pot-guide" class="btn btn--ghost btn--sm">Read →</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card blog-card-item" data-category="design">
+                <div class="card__image img-zoom-wrap">
+                  <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&q=80&auto=format&fit=crop" alt="Balcony garden maximizing" loading="lazy" />
+                </div>
+                <div class="card__body">
+                  <p class="card__category">Garden Design</p>
+                  <h3 class="card__title"><a href="blog-details.html?post=balcony-garden-design">Maximising Your Balcony Garden: 5 Design Secrets</a></h3>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__date"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Jul 7, 2026</span>
+                    <span class="blog-card__read-time"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 7 min read</span>
+                  </div>
+                  <p class="card__description">Even the smallest balcony can become a lush retreat. Our designers reveal the vertical, layered approaches that make it work.</p>
+                  <div class="card__footer">
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 7 min read</span>
+                    <a href="blog-details.html?post=balcony-garden-design" class="btn btn--ghost btn--sm">Read →</a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- ═══ SECTION 6: INLINE NEWSLETTER ══════════ -->
+            <div class="blog-newsletter-inline reveal reveal--up">
+              <h3>Never Miss a Growing Tip</h3>
+              <p>Weekly articles, seasonal guides, and exclusive plant care wisdom — straight to your inbox.</p>
+              <form data-newsletter-form>
+                <input type="email" placeholder="your@email.com" required />
+                <button type="submit" class="btn btn--primary btn-ripple">Subscribe <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></button>
+              </form>
+            </div>
+          </div>
+
+          <!-- ═══ SECTION 4: SIDEBAR ════════════════════ -->
+          <aside class="blog-sidebar" aria-label="Blog sidebar">
+            <div class="blog-sidebar-widget">
+              <p class="blog-sidebar-widget__title">Recent Posts</p>
+              <a href="blog-details.html?post=pruning-101" class="sidebar-recent-post">
+                <div class="sidebar-recent-post__img">
+                  <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=120&q=80&auto=format&fit=crop" alt="Pruning techniques" loading="lazy" />
+                </div>
+                <div>
+                  <p class="sidebar-recent-post__title">Pruning 101: Shape Your Plants Like a Pro</p>
+                  <p class="sidebar-recent-post__date">Aug 5, 2026</p>
+                </div>
+              </a>
+              <a href="blog-details.html?post=monstera-care-guide" class="sidebar-recent-post">
+                <div class="sidebar-recent-post__img">
+                  <img src="https://images.unsplash.com/photo-1611211232932-da3113c5b960?w=120&q=80&auto=format&fit=crop&crop=top" alt="Monstera care" loading="lazy" />
+                </div>
+                <div>
+                  <p class="sidebar-recent-post__title">Complete Monstera Care Guide 2026</p>
+                  <p class="sidebar-recent-post__date">Jul 31, 2026</p>
+                </div>
+              </a>
+              <a href="blog-details.html?post=orchid-blooming" class="sidebar-recent-post">
+                <div class="sidebar-recent-post__img">
+                  <img src="https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?w=120&q=80&auto=format&fit=crop" alt="Orchid care" loading="lazy" />
+                </div>
+                <div>
+                  <p class="sidebar-recent-post__title">Why Your Orchid Isn't Blooming (And How to Fix It)</p>
+                  <p class="sidebar-recent-post__date">Jul 25, 2026</p>
+                </div>
+              </a>
+            </div>
+
+            <div class="blog-sidebar-widget">
+              <p class="blog-sidebar-widget__title">Categories</p>
+              <div class="blog-categories-list">
+                <a href="#" class="blog-category-item">Plant Care <span class="blog-category-count">24</span></a>
+                <a href="#" class="blog-category-item">Seasonal Guides <span class="blog-category-count">18</span></a>
+                <a href="#" class="blog-category-item">Soil & Compost <span class="blog-category-count">12</span></a>
+                <a href="#" class="blog-category-item">Garden Design <span class="blog-category-count">15</span></a>
+                <a href="#" class="blog-category-item">Pots & Planters <span class="blog-category-count">9</span></a>
+                <a href="#" class="blog-category-item">Fertilizers <span class="blog-category-count">7</span></a>
+              </div>
+            </div>
+
+            <div class="blog-sidebar-widget">
+              <p class="blog-sidebar-widget__title">Popular Tags</p>
+              <div class="blog-tags">
+                <button class="blog-tag">Indoor Plants</button>
+                <button class="blog-tag">Succulents</button>
+                <button class="blog-tag">Composting</button>
+                <button class="blog-tag">Watering</button>
+                <button class="blog-tag">Terracotta</button>
+                <button class="blog-tag">Organic</button>
+                <button class="blog-tag">Spring</button>
+                <button class="blog-tag">Herbs</button>
+                <button class="blog-tag">Monstera</button>
+                <button class="blog-tag">Landscaping</button>
+              </div>
+            </div>
+
+            <div class="blog-sidebar-widget" style="background:var(--color-forest);border-color:var(--color-forest)">
+              <p style="font-family:var(--font-serif);font-size:var(--text-xl);color:white;margin-bottom:var(--space-2)">Need Expert Advice?</p>
+              <p style="font-size:var(--text-sm);color:rgba(255,255,255,0.6);margin-bottom:var(--space-4)">Book a 30-minute consultation with one of our botanists.</p>
+              <a href="contact.html" class="btn btn--primary w-full" style="justify-content:center">Book Now →</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)">
+            <div style="width:40px;height:40px;background:var(--color-terracotta);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.2rem"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+            <p class="footer__brand-name">Botanica</p>
+          </div>
+          <p class="footer__brand-desc">A sanctuary for plant lovers. We curate the world's finest botanicals, artisan ceramics, and organic growing supplies — delivered to your door.</p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social-link" aria-label="Instagram"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Pinterest"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Twitter"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__heading">Shop</p>
+          <ul class="footer__links">
+            <li><a href="services.html" class="footer__link">Flower Pots</a></li>
+            <li><a href="services.html" class="footer__link">Indoor Plants</a></li>
+            <li><a href="services.html" class="footer__link">Outdoor Plants</a></li>
+            <li><a href="services.html" class="footer__link">Seeds & Bulbs</a></li>
+            <li><a href="services.html" class="footer__link">Soil & Fertilizers</a></li>
+            <li><a href="services.html" class="footer__link">Garden Tools</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Company</p>
+          <ul class="footer__links">
+            <li><a href="index.html" class="footer__link">Home</a></li>
+            <li><a href="home2.html" class="footer__link">Home 2</a></li>
+            <li><a href="about.html" class="footer__link">About</a></li>
+            <li><a href="services.html" class="footer__link">Services</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Newsletter</p>
+          <p style="font-size:var(--text-sm);color:rgba(255,255,255,0.55);margin-bottom:var(--space-4)">Weekly planting guides & exclusive offers.</p>
+          <form data-newsletter-form class="footer__newsletter">
+            <input type="email" class="form-control" placeholder="your@email.com" style="margin-bottom:var(--space-3)" />
+            <button type="submit" class="btn btn--primary w-full" style="justify-content:center">Subscribe</button>
+          </form>
+          <div class="footer__contact-list">
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> 123 Garden Lane, Greenville</p>
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +1 (555) 234-5678</p>
+            <p class="footer__contact-item"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg> hello@botanica.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Botanica Garden Studio. All rights reserved.</p>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms.html" class="footer__legal-link">Terms</a>
+          <a href="sitemap.html" class="footer__legal-link">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/forms.js"></script>
+  <script src="js/blog-data.js"></script>
+</body>
+</html>
