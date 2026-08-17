@@ -165,18 +165,6 @@
     color: var(--color-text-muted);
   }
 
-  .card__wishlist {
-    background: rgba(13, 31, 26, 0.7);
-    border-color: var(--color-border);
-    color: var(--color-text-muted);
-  }
-
-  .card__wishlist:hover {
-    background: #3B1B1B;
-    color: #F87171;
-    border-color: #7F1D1D;
-  }
-
   /* ── Buttons ────────────────────────────────────────────── */
   .btn--outline {
     color: var(--color-text-primary);
@@ -326,29 +314,29 @@
   }
 
   .pricing-card.is-featured {
-    background: var(--color-surface);
-    border-color: var(--color-terracotta);
+    background: var(--color-bg-card);
+    border-color: var(--color-border);
   }
 
   .pricing-card.is-featured .pricing-card__amount {
-    color: #FFFFFF;
+    color: var(--color-text-primary);
   }
 
   .pricing-card.is-featured .pricing-card__name {
-    color: var(--color-sage-light);
+    color: var(--color-text-muted);
   }
 
   .pricing-card.is-featured .pricing-card__currency,
   .pricing-card.is-featured .pricing-card__period {
-    color: rgba(255,255,255,0.65);
+    color: var(--color-text-muted);
   }
 
   .pricing-card.is-featured .pricing-card__feature {
-    color: rgba(255,255,255,0.85);
+    color: var(--color-text-secondary);
   }
 
   .pricing-card.is-featured .pricing-card__features {
-    border-color: rgba(255,255,255,0.15);
+    border-color: var(--color-border);
   }
 
   /* ── Forms ─────────────────────────────────────────────── */

@@ -74,7 +74,6 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.8);
       margin-bottom: var(--space-8);
-      backdrop-filter: blur(10px);
     }
 
     .parallax-hero__title {
@@ -187,6 +186,8 @@
                   box-shadow var(--duration-normal), border-color var(--duration-normal);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .service-card::before {
@@ -222,6 +223,7 @@
       font-family: var(--font-serif);
       font-size: var(--text-xl);
       margin-bottom: var(--space-3);
+      text-align: center;
     }
 
     .service-card__desc {
@@ -229,14 +231,16 @@
       color: var(--color-text-muted);
       line-height: var(--leading-relaxed);
       margin-bottom: var(--space-6);
+      flex: 1;
     }
 
     .service-card__link {
       font-size: var(--text-sm);
       font-weight: var(--weight-semibold);
       color: var(--color-terracotta);
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: var(--space-2);
       transition: gap var(--duration-fast);
     }

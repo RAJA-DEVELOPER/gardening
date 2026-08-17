@@ -27,12 +27,13 @@
 
   /* ── Cards ──────────────────────────────────────────────── */
   .card__badge            { left: auto; right: var(--space-4); }
-  .card__wishlist         { right: auto; left: var(--space-4); }
 
   /* ── Footer ─────────────────────────────────────────────── */
   .footer__link::before   { content: '←'; margin-left: var(--space-2); margin-right: 0; }
   .footer__link:hover     { transform: translateX(-4px); }
-  .footer__socials        { flex-direction: row-reverse; }
+  .footer__heading        { padding-left: 0; padding-right: var(--space-3); }
+  .footer__grid > div:nth-child(2) .footer__heading,
+  .footer__grid > div:nth-child(3) .footer__heading { padding-right: var(--space-6); }
 
   /* ── Accordion ──────────────────────────────────────────── */
   .accordion-trigger      { flex-direction: row-reverse; text-align: right; }
@@ -87,6 +88,9 @@
 
   @media (max-width: 768px) {
     .back-to-top { right: auto; left: var(--space-6); }
+    .footer__heading,
+    .footer__grid > div:nth-child(2) .footer__heading,
+    .footer__grid > div:nth-child(3) .footer__heading { padding-right: 0; }
   }
 
   /* ── Pricing feature list ──────────────────────────────────── */
